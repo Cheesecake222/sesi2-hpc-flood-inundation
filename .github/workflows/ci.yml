@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: pip install numpy matplotlib pytest
+      - name: Unit tests
+        run: pytest -q
+      - name: Smoke run (threads backend)
+        run: python -m floodsim run --config configs/smoke.toml --backend threads --parts 3 --outdir outputs/smoke
+
+  mpi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install MPI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libopenmpi-dev openmpi-bin
+      - name: Install Python deps
+        run: pip install numpy matplotlib mpi4py
+      - name: Serial reference
+        run: python -m floodsim run --config configs/smoke.toml --outdir outputs/serial
+      - name: MPI run (3 ranks)
+        run: mpirun --oversubscribe -n 3 python -m floodsim run --config configs/smoke.toml --backend mpi --outdir outputs/mpi3
+      - name: Serial and MPI results must match
+        run: python scripts/compare_runs.py outputs/serial outputs/mpi3

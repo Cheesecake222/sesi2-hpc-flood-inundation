@@ -1,0 +1,30 @@
+# Demo: lembah sungai sintetis (1,6 km x 2,4 km), hujan rencana + banjir kiriman sungai.
+# Jalankan:  python -m floodsim run --config configs/demo.toml --plot
+
+[run]
+name = "demo"
+duration_h = 6.0
+history_interval_min = 10
+snapshot_interval_min = 10     # 0 = tidak menyimpan snapshot (hemat memori/disk)
+
+[terrain]
+source = "synthetic"
+ny = 160                       # jumlah baris (utara -> selatan)
+nx = 240                       # jumlah kolom (barat -> timur)
+dx = 10.0                      # ukuran sel (m)
+seed = 7
+
+[model]
+open_boundaries = ["south"]    # outlet di selatan; batas lain tertutup
+
+[rainfall]
+type = "design"                # "design" | "csv" | "none"
+total_mm = 150.0
+duration_min = 180
+peak_position = 0.4            # puncak hujan pada 40% durasi
+interval_min = 10
+
+[[inflow]]                     # debit sungai masuk dari hulu (utara)
+location = "river_inlet"
+times_min = [0,  60, 150, 240, 360]
+q_m3s     = [5,  20,  80,  30,   8]

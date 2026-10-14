@@ -1,0 +1,27 @@
+{
+  "steps": 14063,
+  "wall_time_s": 117.436609877,
+  "cell_updates_per_s": 4598388.8717973195,
+  "grid": [
+    160,
+    240
+  ],
+  "dx_m": 10.0,
+  "nparts": 1,
+  "mass_balance_error_m3": -1.6007106751203537e-09,
+  "mass_balance_error_rel": -1.2082693331934282e-15,
+  "rain_total_m3": 575999.999999998,
+  "inflow_total_m3": 748796.2446334,
+  "infiltrated_m3": 159936.68433851845,
+  "outflow_m3": 1061337.6921027123,
+  "stored_final_m3": 103521.86819216565,
+  "max_depth_m": 2.2944114444954344,
+  "name": "demo",
+  "rain_design_total_mm": 150.00000000000003,
+  "flooded_area_ha": {
+    ">=0.1 m": 126.5,
+    ">=0.5 m": 13.39,
+    ">=1.0 m": 3.19,
+    ">=2.0 m": 0.33
+  }
+}

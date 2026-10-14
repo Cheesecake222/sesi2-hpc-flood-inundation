@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+
+# Keluaran simulasi dan log klaster
+outputs/
+logs/
+
+# Data besar milik Anda (DEM nyata, dsb). Contoh kecil di data/contoh/ tetap ikut.
+data/*
+!data/README.md
+!data/contoh/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store

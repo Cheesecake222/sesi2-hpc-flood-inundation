@@ -1,0 +1,28 @@
+# Konfigurasi kecil dan cepat (beberapa detik) untuk uji cepat dan CI.
+[run]
+name = "smoke"
+duration_h = 0.5
+history_interval_min = 5
+snapshot_interval_min = 10
+
+[terrain]
+source = "synthetic"
+ny = 24
+nx = 32
+dx = 10.0
+seed = 3
+
+[model]
+open_boundaries = ["south"]
+
+[rainfall]
+type = "design"
+total_mm = 60.0
+duration_min = 30
+peak_position = 0.4
+interval_min = 5
+
+[[inflow]]
+location = "river_inlet"
+times_min = [0, 15, 30]
+q_m3s     = [2, 10,  3]

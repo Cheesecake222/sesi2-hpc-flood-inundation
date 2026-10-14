@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "floodsim"
+version = "0.1.0"
+description = "Simulasi genangan banjir 2D skala kecil (inersia lokal) yang siap diparalelkan dengan MPI"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = ["numpy>=1.26", "matplotlib>=3.8"]
+
+[project.optional-dependencies]
+mpi = ["mpi4py>=3.1"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+floodsim = "floodsim.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["floodsim*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

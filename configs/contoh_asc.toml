@@ -1,0 +1,29 @@
+# Contoh alur DATA SENDIRI: DEM .asc + hujan dari CSV (+ debit sungai manual).
+# Path relatif terhadap folder berkas konfigurasi ini.
+# Ganti 'dem' dan 'file' dengan data Anda, lalu atur 'cells' sesuai lokasi sungai masuk.
+
+[run]
+name = "contoh_asc"
+duration_h = 1.5
+history_interval_min = 5
+snapshot_interval_min = 10
+
+[terrain]
+source = "asc"
+dem = "../data/contoh/dem.asc"
+manning_default = 0.05         # dipakai bila tidak ada raster Manning
+infiltration_mm_h = 10.0       # dipakai bila tidak ada raster infiltrasi
+# manning_raster = "../data/manning.asc"         # opsional, ukuran sama dengan DEM
+# infiltration_raster = "../data/infiltrasi.asc" # opsional (mm/jam)
+
+[model]
+open_boundaries = ["south"]
+
+[rainfall]
+type = "csv"
+file = "../data/contoh/hujan.csv"
+
+[[inflow]]                     # opsional; hapus blok ini jika tidak ada sungai masuk
+cells = [[1, 32], [1, 33]]     # [baris, kolom] (baris 0 = utara)
+times_min = [0, 30, 60, 90]
+q_m3s     = [1,  8,  4,  1]
